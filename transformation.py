@@ -32,7 +32,7 @@ DECODE_R = {"A": 0, "B": 1, "C": 2, "D": 3, "E": 4, "F": 5, "G": 6, "H": 7}
 DECODE_S = {"A": 0, "B": 1, "C": 2, "D": 3, "E": 4}
 
 
-def to_twd67tm2_from(taipower_grid):
+def to_twd67tm2_from_taipower_grid(taipower_grid):
     """
     transform taipower_grid to twd67tm2
 
@@ -60,7 +60,7 @@ def to_twd67tm2_from(taipower_grid):
 
     return x, y
 
-def to_twd67latlon_from(twd67tm2):
+def to_twd67latlon_from_twd67tm2(twd67tm2):
     """
     tranform twd67tm2 to twd67latlon
 
@@ -124,12 +124,17 @@ def to_twd67latlon_from(twd67tm2):
 
     return lat, lon
 
+def to_twd67latlon_from_taipower_grid(taipower_grid):
+    return to_twd67latlon_from_twd67tm2(
+        to_twd67tm2_from_taipower_grid(taipower_grid)
+    )
+
 
 def main():
     tg1 = "G8150HD7812"
     tg2 = "B8146CC58"
-    print(to_twd67latlon_from(to_twd67tm2_from(tg1)))
-    print(to_twd67latlon_from(to_twd67tm2_from(tg2)))
+    print(to_twd67latlon_from_taipower_grid(tg1))
+    print(to_twd67latlon_from_taipower_grid(tg2))
 
 if __name__ == "__main__":
     main()
